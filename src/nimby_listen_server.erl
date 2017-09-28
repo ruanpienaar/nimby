@@ -11,10 +11,11 @@ start_link(Host, Port) ->
     end).
 
 listen(Host, Port) ->
-    {ok, LS} = gen_tcp:listen(Port, [binary]),
+    {ok, LS} = gen_tcp:listen(Port, [binary, {reuseaddr, true}]),
     accept_loop(LS, []).
 
 accept_loop(LS, Pids) ->
     {ok, Socket} = gen_tcp:accept(LS),
     Pid = nimby_sock:start_link(Socket),
+    ok = gen_tcp:controlling_process(Socket, Pid),
     accept_loop(LS, [Pid|Pids]).
