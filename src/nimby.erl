@@ -6,7 +6,8 @@
     enc_term/1,
     dec_bin/1,
     enc_resp/1,
-    dec_resp/1
+    dec_resp/1,
+    looper/1
 ]).
 
 connect(Host, Port) ->
@@ -29,3 +30,9 @@ enc_resp(Term) ->
 
 dec_resp(Bin) ->
     binary_to_term(Bin).
+
+looper(Sockets) ->
+    lists:foreach(fun(Socket) ->
+        nimby:send(Socket, {erlang, now, []})
+    end, Sockets),
+    looper(Sockets).
