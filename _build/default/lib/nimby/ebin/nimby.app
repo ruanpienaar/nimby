@@ -1,9 +1,0 @@
-{application,nimby,
-             [{description,[]},
-              {vsn,"1"},
-              {registered,[]},
-              {applications,[kernel,stdlib]},
-              {mod,{nimby_app,[]}},
-              {env,[]},
-              {modules,[nimby,nimby_app,nimby_listen_server,nimby_sock,
-                        nimby_sup]}]}.
